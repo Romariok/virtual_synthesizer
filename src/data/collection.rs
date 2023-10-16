@@ -21,7 +21,7 @@ pub struct BasicPiano{
 }
 
 impl BasicPiano {
-    pub fn initBasic() -> BasicPiano {
+    pub fn init_basic() -> BasicPiano {
         BasicPiano{
         C: generate_sine_wave(261.63, 1.0, 100.0),
         D: generate_sine_wave(293.66, 1.0, 100.0),
