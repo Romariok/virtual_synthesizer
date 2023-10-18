@@ -3,7 +3,7 @@ mod services;
 extern crate hound;
 extern crate rodio;
 
-use data::collection::BasicPiano;
+use data::collection::{BasicPiano, BaseKeys};
 use hound::SampleFormat;
 use std::fs::File;
 use std::io::BufReader;
@@ -23,34 +23,17 @@ use rodio::OutputStream;
 use rodio::OutputStreamHandle;
 
 fn virtual_keycode_to_string(key_code: VirtualKeyCode) -> String {
-    // TODO: Implement enum with letters instead of hardcoding
-    // try to use &str since it is more applicable
     match key_code {
-        VirtualKeyCode::A => "A".to_string(),
-        VirtualKeyCode::B => "B".to_string(),
-        VirtualKeyCode::C => "C".to_string(),
-        VirtualKeyCode::D => "D".to_string(),
-        VirtualKeyCode::E => "E".to_string(),
-        VirtualKeyCode::F => "F".to_string(),
-        VirtualKeyCode::G => "G".to_string(),
+        VirtualKeyCode::X | VirtualKeyCode::C | VirtualKeyCode::V | VirtualKeyCode::B | VirtualKeyCode::N 
+        | VirtualKeyCode::M | VirtualKeyCode::Comma=> BaseKeys::init().to_string(),
         _ => "Unknown".to_string(),
     }
 }
 
-fn play_wav_file(file_name: &str, handle: OutputStreamHandle) {
-    let file_path = format!("resources/basic/{}", file_name);
-    let file = File::open(file_path).expect("Failed to open file");
-    let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
-    let sink = rodio::Sink::try_new(&handle).unwrap();
-    sink.append(source);
-    println!("Playing {:?}", file_name);
-    thread::sleep(Duration::from_secs(1));
-    sink.stop();
-}
+
 
 
 fn main() {
-
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
     let mut threads: HashMap<String, thread::JoinHandle<()>> = HashMap::new();
@@ -65,7 +48,6 @@ fn main() {
     let basic: BasicPiano = BasicPiano::init_basic();
 
     for (key, value) in basic.as_map() {
-        // TODO: This method may panic due to .unwrap(). Method desc even says so
 
         let mut writer =
             hound::WavWriter::create(format!("resources/basic/{}.wav", key), spec).unwrap();
@@ -110,12 +92,11 @@ fn main() {
                             | VirtualKeyCode::G
                             | VirtualKeyCode::A
                             | VirtualKeyCode::B => {
-                                // TODO: To use thread-safe values, use Arc;
 
                                 let handle_clone = Arc::clone(&handle_arc);
                                 let keycode = keycode;
                                 task::spawn(async move {
-                                    play_sound(handle_clone, &keycode).await;
+                                    play_sound(handle_clone, keycode).await;
                                 });
                             }
                             _ => (),
@@ -130,7 +111,16 @@ fn main() {
 }
 
 /// TODO: Build your logic
-async fn play_sound(handle: Arc<OutputStreamHandle>, keycode: &VirtualKeyCode) {
+async fn play_sound(handle: Arc<OutputStreamHandle>, keycode: VirtualKeyCode) {
 
-    todo!()
+}
+fn play_wav_file(file_name: &str, handle: OutputStreamHandle) {
+    let file_path = format!("resources/basic/{}", file_name);
+    let file = File::open(file_path).expect("Failed to open file");
+    let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
+    let sink = rodio::Sink::try_new(&handle).unwrap();
+    sink.append(source);
+    println!("Playing {:?}", file_name);
+    thread::sleep(Duration::from_secs(1));
+    sink.stop();
 }
