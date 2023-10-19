@@ -24,15 +24,22 @@ use rodio::OutputStreamHandle;
 
 fn virtual_keycode_to_string(key_code: VirtualKeyCode) -> String {
     match key_code {
-        VirtualKeyCode::X | VirtualKeyCode::C | VirtualKeyCode::V | VirtualKeyCode::B | VirtualKeyCode::N 
-        | VirtualKeyCode::M | VirtualKeyCode::Comma=> BaseKeys::init().to_string(),
+        VirtualKeyCode::X | 
+        VirtualKeyCode::C | 
+        VirtualKeyCode::V | 
+        VirtualKeyCode::B | 
+        VirtualKeyCode::N | 
+        VirtualKeyCode::M | 
+        VirtualKeyCode::Comma=> BaseKeys::init().to_string(key_code),
         _ => "Unknown".to_string(),
     }
 }
 
 
 
-
+/// TODO: Reduce code in main, since it should only call external methods and define variables for them
+/// Big part of code can (and should) be moved to structs (rust java-objects) and enums
+/// Look up #[derive(Default)] trait with impl block to reduce boilerplate
 fn main() {
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
@@ -48,7 +55,9 @@ fn main() {
     let basic: BasicPiano = BasicPiano::init_basic();
 
     for (key, value) in basic.as_map() {
-
+        // TODO: This method may panic due to .unwrap(). Method desc even says so
+        // Use it only when no panic may occur
+        // Not production-friendly
         let mut writer =
             hound::WavWriter::create(format!("resources/basic/{}.wav", key), spec).unwrap();
         wav_files.push(format!("resources/basic/{}.wav", key));
@@ -57,7 +66,6 @@ fn main() {
             writer.write_sample(sample).unwrap();
         }
     }
-
 
     for file_name in &wav_files {
         let file_name_clone = file_name.to_string();
@@ -85,14 +93,16 @@ fn main() {
                     if let ElementState::Pressed = input.state {
                         println!("Key pressed: {:?}", keycode);
                         match keycode {
-                            VirtualKeyCode::C
-                            | VirtualKeyCode::D
-                            | VirtualKeyCode::E
-                            | VirtualKeyCode::F
-                            | VirtualKeyCode::G
-                            | VirtualKeyCode::A
-                            | VirtualKeyCode::B => {
-
+                            VirtualKeyCode::X
+                            | VirtualKeyCode::C
+                            | VirtualKeyCode::V
+                            | VirtualKeyCode::B
+                            | VirtualKeyCode::N
+                            | VirtualKeyCode::M
+                            | VirtualKeyCode::Comma => {
+                                // TODO: To use thread-safe values, use Arc;
+                                // To understand async-rust start from this video:
+                                // https://www.youtube.com/watch?v=77aRH6YBKyY&list=PLai5B987bZ9CoVR-QEIN9foz4QCJ0H2Y8&index=26&pp=iAQB
                                 let handle_clone = Arc::clone(&handle_arc);
                                 let keycode = keycode;
                                 task::spawn(async move {
@@ -112,7 +122,15 @@ fn main() {
 
 /// TODO: Build your logic
 async fn play_sound(handle: Arc<OutputStreamHandle>, keycode: VirtualKeyCode) {
-
+    let file_name = virtual_keycode_to_string(keycode)+".wav";
+    let file_path = format!("resources/basic/{}", file_name.clone());
+    let file = File::open(file_path).expect("Failed to open file");
+    let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
+    let sink = rodio::Sink::try_new(&handle).unwrap();
+    sink.append(source);
+    println!("Playing {:?}", file_name);
+    thread::sleep(Duration::from_secs(1));
+    sink.stop();
 }
 fn play_wav_file(file_name: &str, handle: OutputStreamHandle) {
     let file_path = format!("resources/basic/{}", file_name);

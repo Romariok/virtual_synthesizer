@@ -20,13 +20,13 @@ pub struct BasicPiano{
 }
 
 pub struct BaseKeys{
-    pub C: VirtualKeyCode,
-    pub D: VirtualKeyCode,
-    pub E: VirtualKeyCode,
-    pub F: VirtualKeyCode,
-    pub G: VirtualKeyCode,
-    pub A: VirtualKeyCode,
-    pub B: VirtualKeyCode
+    pub C: String,
+    pub D: String,
+    pub E: String,
+    pub F: String,
+    pub G: String,
+    pub A: String,
+    pub B: String
 }
 
 
@@ -52,34 +52,26 @@ impl BasicPiano {
 }
 
 impl BaseKeys{
-    pub fn to_string(&self) -> String {
-        if (self.C==VirtualKeyCode::X){
-            return "C".to_string();
-        } else if (self.D == VirtualKeyCode::C){
-            return "D".to_string();
-        } else if (self.E == VirtualKeyCode::V){
-            return "E".to_string();
-        } else if (self.F == VirtualKeyCode::B){
-            return "F".to_string();
-        } else if (self.G == VirtualKeyCode::N){
-            return "G".to_string();
-        } else if (self.A == VirtualKeyCode::M){
-            return "A".to_string();
-        } else if (self.B == VirtualKeyCode::Comma){
-            return "B".to_string();
-        } else {
-            return "Unknown".to_string();
-            
+    pub fn to_string(&self, key_code: VirtualKeyCode) -> String {
+        match(key_code){
+            VirtualKeyCode::X => self.C.clone(),
+            VirtualKeyCode::C => self.D.clone(),
+            VirtualKeyCode::V => self.E.clone(),
+            VirtualKeyCode::B => self.F.clone(),
+            VirtualKeyCode::N => self.G.clone(),
+            VirtualKeyCode::M => self.A.clone(),
+            VirtualKeyCode::Comma => self.B.clone(),
+            _ => "Unknown".to_string(),
         }
     }
     pub fn init() -> BaseKeys {BaseKeys {
-        C: VirtualKeyCode::X,
-        D: VirtualKeyCode::C,
-        E: VirtualKeyCode::V,
-        F: VirtualKeyCode::B,
-        G: VirtualKeyCode::N,
-        A: VirtualKeyCode::M,
-        B: VirtualKeyCode::Comma
+        C: "C".to_string(),
+        D: "D".to_string(),
+        E: "E".to_string(),
+        F: "F".to_string(),
+        G: "G".to_string(),
+        A: "A".to_string(),
+        B: "B".to_string()
     }
 }
 }
