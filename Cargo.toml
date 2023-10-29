@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 async-std = "1.12.0"
+flacenc = "0.3.0"
 hound = "3.5.1"
 rodio = "0.17.1"
 winit = "0.28.7"

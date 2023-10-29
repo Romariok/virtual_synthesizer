@@ -1,18 +1,17 @@
 
 
 
-// Генерируем синусоидальную волну
-pub fn generate_sine_wave(freq: f32, duration_secs: f32, amplitude: f32) -> Vec<i16> {
+// Генерируем синусоидальную волну 
+pub fn generate_sine_wave(freq: f32, duration_secs: f32, amplitude: f32) -> Vec<i32> {
    let sample_rate = 44100; // Частота дискретизации
    let num_samples = (duration_secs * sample_rate as f32) as usize;
    let mut samples = Vec::with_capacity(num_samples);
 
    for sample_idx in 0..num_samples {
        let t = sample_idx as f32 / sample_rate as f32;
-       let sample_value = (amplitude * f32::sin(2.0 * std::f32::consts::PI * freq * t)) as i16;
+       let sample_value = (amplitude * f32::sin(2.0 * std::f32::consts::PI * freq * t)) as i32;
        samples.push(sample_value);
    }
-
    samples
 }
 // Сложение волн
