@@ -8,7 +8,8 @@ edition = "2021"
 [dependencies]
 async-std = "1.12.0"
 flacenc = "0.3.0"
-hound = "3.5.1"
+num-complex = "0.4.4"
 rodio = "0.17.1"
+wavegen = "0.4.1"
 winit = "0.28.7"
 

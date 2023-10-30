@@ -1049,6 +1049,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "num-complex"
+version = "0.4.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ba157ca0885411de85d6ca030ba7e2a83a28636056c7c699b07c8b6f7383214"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "num-derive"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1773,8 +1782,9 @@ version = "0.1.0"
 dependencies = [
  "async-std",
  "flacenc",
- "hound",
+ "num-complex",
  "rodio",
+ "wavegen",
  "winit",
 ]
 
@@ -1865,6 +1875,15 @@ name = "wasm-bindgen-shared"
 version = "0.2.87"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ca6ad05a4870b2bf5fe995117d3728437bd27d7cd5f06f13c17443ef369775a1"
+
+[[package]]
+name = "wavegen"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2913201c3194677183e058a7ddb1a237a19e4e6b97275d9fe431c41a247f449c"
+dependencies = [
+ "num-traits",
+]
 
 [[package]]
 name = "wayland-client"

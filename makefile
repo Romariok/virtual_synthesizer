@@ -1,8 +1,6 @@
 
 
 
-
-
 clean:
 	rm -rf resources/basic/*
 
