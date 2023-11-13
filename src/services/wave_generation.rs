@@ -1,5 +1,5 @@
 use std::time::Duration;
-use wavegen::{wf, sine, square, sawtooth};
+use wavegen::{wf, sine, square, sawtooth, dc_bias};
 
 const NOTE_TIME: f32 = 0.4;
 const NOTE_TIME_LANCER: f32 = 0.7;
@@ -7,7 +7,7 @@ const AMPLITUDE: f32 = 1500.0;
 const SAMPLE_RATE: f32 = 44100.0;
 
 pub fn gen_lancer_wave(freq: f32)-> Vec<i32> {
-    let waveform = wf!(i32, SAMPLE_RATE, sawtooth!(freq, AMPLITUDE));
+    let waveform = wf!(i32, SAMPLE_RATE, sawtooth!(freq, AMPLITUDE), dc_bias!(AMPLITUDE));
     waveform.iter().take((NOTE_TIME_LANCER*(2000 as f32)) as usize).collect()
 }
 
