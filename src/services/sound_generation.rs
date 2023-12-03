@@ -10,9 +10,9 @@ use crate::data::{virtual_keycode_to_string, BasicPiano};
 
 
 
-pub async fn play_sound(handle: Arc<OutputStreamHandle>, keycode: VirtualKeyCode) {
+pub async fn play_sound(handle: Arc<OutputStreamHandle>, keycode: VirtualKeyCode, style: String) {
    let file_name = virtual_keycode_to_string(keycode) + ".flac";
-   let file_path = format!("resources/lancer/{}", file_name.clone());
+   let file_path = format!("resources/{}/{}", style, file_name.clone());
 
    let file = File::open(Path::new(&file_path)).unwrap();
    let source = rodio::Decoder::new(BufReader::new(file)).unwrap();

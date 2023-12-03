@@ -17,9 +17,9 @@ use winit::{
     window::WindowBuilder,
 };
 
-use std::num::NonZeroU32;
 use async_std::task;
 use rodio::OutputStream;
+use std::num::NonZeroU32;
 
 fn main() {
     let path = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/piano.jpg");
@@ -28,24 +28,33 @@ fn main() {
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new()
         .with_theme(Some(winit::window::Theme::Dark))
-        .with_title("ДЕЛАЙ ДЕЛАЙ 🥵")
+        .with_title("Пианинка 😁")
         .with_window_icon(Some(icon))
         .build(&event_loop)
         .unwrap();
+
     let context = unsafe { Context::new(&window) }.unwrap();
     let mut surface = unsafe { Surface::new(&context, &window) }.unwrap();
 
     let (stream, handle) = OutputStream::try_default().unwrap();
-    let styles = vec![BasicPiano::init_basic(), BasicPiano::init_lancer()];
+    let styles = vec![
+        BasicPiano::init_basic(),
+        BasicPiano::init_lancer(),
+    ];
+    let styles_names = styles
+        .iter()
+        .map(|style| style.name.clone())
+        .collect::<Vec<String>>();
+    let mut index_style = 0;
 
     generate_flacs(styles);
 
-    // Create an Arc (atomic reference counter) for thread-safe access to handle
     let handle_arc = Arc::new(handle);
 
     event_loop.run(move |event, _, control_flow| {
         *control_flow = ControlFlow::Poll;
 
+        let style_name = styles_names.clone();
         match event {
             Event::WindowEvent { event, .. } => match event {
                 winit::event::WindowEvent::CloseRequested => {
@@ -58,6 +67,7 @@ fn main() {
                     if let Some(keycode) = input.virtual_keycode {
                         if let ElementState::Pressed = input.state {
                             println!("Key pressed: {:?}", keycode);
+
                             match keycode {
                                 VirtualKeyCode::X
                                 | VirtualKeyCode::D
@@ -86,8 +96,25 @@ fn main() {
                                     let handle_clone = Arc::clone(&handle_arc);
                                     let keycode = keycode;
                                     task::spawn(async move {
-                                        play_sound(handle_clone, keycode).await;
+                                        play_sound(
+                                            handle_clone,
+                                            keycode,
+                                            style_name[index_style].to_string(),
+                                        )
+                                        .await;
                                     });
+                                }
+                                VirtualKeyCode::Left => {
+                                    if index_style > 0 {
+                                        index_style -= 1;
+                                    }
+                                    println!("Tune: {}", style_name[index_style].to_string());
+                                }
+                                VirtualKeyCode::Right => {
+                                    if index_style < styles_names.len() - 1 {
+                                        index_style += 1;
+                                    }
+                                    println!("Tune: {}", style_name[index_style].to_string());
                                 }
                                 VirtualKeyCode::Escape => {
                                     *control_flow = ControlFlow::Exit;
@@ -97,10 +124,6 @@ fn main() {
                         }
                     }
                 }
-                
-
-
-
 
                 _ => {}
             },
