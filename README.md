@@ -9,3 +9,12 @@ VIRTUAL SYNTHESIZER
 * Стрелочки - менять звук нот
 
 ![](/docs/board.png)
+
+# Звуки
+* Базовый (Преобразование Фурье)
+
+![](/docs/basic.png)
+
+* Lancer (crate wavegen)
+
+![](/docs/lancer.png)
