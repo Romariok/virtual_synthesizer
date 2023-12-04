@@ -13,18 +13,23 @@ VIRTUAL SYNTHESIZER
 # Звуки
 ## Базовые (Преобразование Фурье)
 * Синусоидальная
+  
 ![](/docs/sine.png)
 
 * Пилообразная
+  
 ![](/docs/sawtooth.png)
 
 * Квадратная
+  
 ![](/docs/square.png)
 
 * Треугольная
+  
 ![](/docs/triangle.png)
 
 * Тангенциальная
+  
 ![](/docs/tangent.png)
 
 
