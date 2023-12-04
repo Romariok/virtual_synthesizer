@@ -32,6 +32,15 @@ VIRTUAL SYNTHESIZER
   
 ![](/docs/tangent.png)
 
+## Комплексные (Сложение нескольких волн)
+
+* Орган
+
+![](/docs/organ.png)
+
+* Колокол
+
+![](/docs/bell.png)
 
 ## Сторонние библиотеки
 * Lancer (wavegen)

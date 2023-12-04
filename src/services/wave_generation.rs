@@ -1,6 +1,7 @@
 use std::f32::consts::PI;
 use std::time::Duration;
 use wavegen::{dc_bias, sawtooth, wf};
+use crate::services::filter::envelope;
 
 const NOTE_TIME: f32 = 0.4;
 const NOTE_TIME_LANCER: f32 = 0.7;
@@ -44,6 +45,37 @@ pub fn tangent_wave(frequency: f32) -> impl Fn(f32) -> f32 {
     }
 }
 
+pub fn organ(frequency: f32) -> impl Fn(f32) -> f32 {
+    move |t| {
+        let frequency_2 = (frequency / 2.0) * 3.0;
+        sine_wave(frequency)(t) + 0.2 * sine_wave(frequency_2)(t)
+    }
+}
+
+pub fn bell(frequency: f32) -> impl Fn(f32) -> f32 {
+    move |t| {
+        // Frequency, amplitude, decay
+        let harmonics_table: [(f32, f32, f32); 9] = [
+            (0.56, 1.5, 1.0),
+            (0.92, 0.5, 2.0),
+            (1.19, 0.25, 4.0),
+            (1.71, 0.125, 6.0),
+            (2.00, 0.062_5, 8.4),
+            (2.74, 0.031_25, 10.8),
+            (3.00, 0.015_625, 13.6),
+            (3.76, 0.007_812_5, 16.4),
+            (4.07, 0.003_906_25, 19.6),
+        ];
+
+        harmonics_table.iter().fold(0.0, |acc, h| {
+            acc + sine_wave(frequency * h.0)(t) *h.1* envelope(t, 0., 0.9 * h.2)
+        }) / 2.0
+    }
+}
+
+
+
+
 pub fn gen_lancer_wave(freq: f32) -> Vec<i32> {
     let waveform = wf!(
         i32,
@@ -64,20 +96,9 @@ pub fn generate_wave(amplitude: f32, f: impl Fn(f32) -> f32) -> Vec<i32> {
 
     for sample_idx in 0..num_samples {
         let t = sample_idx as f32 / SAMPLE_RATE as f32;
-        let sample_value = (AMPLITUDE * f(t)) as i32;
+        let sample_value = (amplitude * f(t)* envelope(t, 0., 0.42 )) as i32;
+        samples.push(sample_value);
 
-        let time_remaining = (num_samples - sample_idx) as f32 / SAMPLE_RATE as f32;
-
-        if time_remaining < 0.06 {
-            let fade_out_duration = Duration::from_millis(60);
-            let fade_out_samples = (fade_out_duration.as_secs_f32() * SAMPLE_RATE as f32) as usize;
-            let fade_out_idx = num_samples - sample_idx;
-            let fade_out_amp = amplitude * (fade_out_idx as f32 / fade_out_samples as f32);
-            let fade_out_value = (fade_out_amp * f(t)) as i32;
-            samples.push(fade_out_value);
-        } else {
-            samples.push(sample_value);
-        }
     }
     samples
 }
