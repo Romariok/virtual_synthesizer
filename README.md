@@ -60,3 +60,5 @@ VIRTUAL SYNTHESIZER
 * Lancer (wavegen)
 
 ![](/docs/lancer.png)
+
+[Прослушать](/resources/lancer/A.flac)
