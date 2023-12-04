@@ -4,8 +4,13 @@ use winit::event::VirtualKeyCode;
 
 
 pub use crate::services::wave_generation::{
-    generate_sine_wave,
+    generate_wave,
     add_waves,
+    sine_wave,
+    square_wave,
+    sawtooth_wave,
+    triangle_wave,
+    tangent_wave,
     gen_lancer_wave,
     AMPLITUDE
 };
@@ -71,33 +76,33 @@ pub struct BaseKeys{
 
  
 impl BasicPiano {
-    pub fn init_basic() -> BasicPiano {
+    pub fn init_sine() -> BasicPiano {
         BasicPiano{
-        c: generate_sine_wave(261.63, AMPLITUDE),
-        csharp: generate_sine_wave(277.18, AMPLITUDE),
-        d: generate_sine_wave(293.66, AMPLITUDE),
-        dsharp: generate_sine_wave(311.13, AMPLITUDE),
-        e: generate_sine_wave(329.63, AMPLITUDE),
-        f: generate_sine_wave(349.23, AMPLITUDE),
-        fsharp: generate_sine_wave(369.99, AMPLITUDE),
-        g: generate_sine_wave(392.00, AMPLITUDE),
-        gsharp: generate_sine_wave(415.30, AMPLITUDE),
-        a: generate_sine_wave(440.00, AMPLITUDE),
-        asharp: generate_sine_wave(466.16, AMPLITUDE),
-        b: generate_sine_wave(493.88, AMPLITUDE),
-        c2: generate_sine_wave(523.25, AMPLITUDE),
-        csharp2: generate_sine_wave(554.36, AMPLITUDE),
-        d2: generate_sine_wave(587.32, AMPLITUDE),
-        dsharp2: generate_sine_wave(622.26, AMPLITUDE),
-        e2: generate_sine_wave(659.26, AMPLITUDE),
-        f2: generate_sine_wave(698.46, AMPLITUDE),
-        fsharp2: generate_sine_wave(739.98, AMPLITUDE),
-        g2: generate_sine_wave(784., AMPLITUDE),
-        gsharp2: generate_sine_wave(830.60, AMPLITUDE),
-        a2: generate_sine_wave(880., AMPLITUDE),
-        asharp2: generate_sine_wave(923.32, AMPLITUDE),
-        b2: generate_sine_wave(987.75, AMPLITUDE),
-        name: "basic".to_string()
+        c: generate_wave(AMPLITUDE, sine_wave(261.63)),
+        csharp: generate_wave(AMPLITUDE, sine_wave(277.18)),
+        d: generate_wave(AMPLITUDE, sine_wave(293.66)),
+        dsharp: generate_wave(AMPLITUDE, sine_wave(311.13)),
+        e: generate_wave(AMPLITUDE, sine_wave(329.63)),
+        f: generate_wave(AMPLITUDE, sine_wave(349.23)),
+        fsharp: generate_wave(AMPLITUDE, sine_wave(369.99)),
+        g: generate_wave(AMPLITUDE, sine_wave(392.00)),
+        gsharp: generate_wave(AMPLITUDE, sine_wave(415.30)),
+        a: generate_wave(AMPLITUDE, sine_wave(440.00)),
+        asharp: generate_wave(AMPLITUDE, sine_wave(466.16)),
+        b: generate_wave(AMPLITUDE, sine_wave(493.88)),
+        c2: generate_wave(AMPLITUDE, sine_wave(523.25)),
+        csharp2: generate_wave(AMPLITUDE, sine_wave(554.36)),
+        d2: generate_wave(AMPLITUDE, sine_wave(587.32)),
+        dsharp2: generate_wave(AMPLITUDE, sine_wave(622.25)),
+        e2: generate_wave(AMPLITUDE, sine_wave(659.26)),
+        f2: generate_wave(AMPLITUDE, sine_wave(698.46)),
+        fsharp2: generate_wave(AMPLITUDE, sine_wave(739.98)),
+        g2: generate_wave(AMPLITUDE, sine_wave(784.)),
+        gsharp2: generate_wave(AMPLITUDE, sine_wave(830.60)),
+        a2: generate_wave(AMPLITUDE, sine_wave(880.)),
+        asharp2: generate_wave(AMPLITUDE, sine_wave(923.32)),
+        b2: generate_wave(AMPLITUDE, sine_wave(987.75)),
+        name: "sine".to_string()
     }
     }
 
@@ -128,6 +133,126 @@ impl BasicPiano {
         asharp2: gen_lancer_wave(923.32),
         b2: gen_lancer_wave(987.75),
         name: "lancer".to_string()
+    }
+    }
+    
+    pub fn init_square() -> BasicPiano {
+        BasicPiano{
+        c: generate_wave(AMPLITUDE, square_wave(261.63)),
+        csharp: generate_wave(AMPLITUDE, square_wave(277.18)),
+        d: generate_wave(AMPLITUDE, square_wave(293.66)),
+        dsharp: generate_wave(AMPLITUDE, square_wave(311.13)),
+        e: generate_wave(AMPLITUDE, square_wave(329.63)),
+        f: generate_wave(AMPLITUDE, square_wave(349.23)),
+        fsharp: generate_wave(AMPLITUDE, square_wave(369.99)),
+        g: generate_wave(AMPLITUDE, square_wave(392.00)),
+        gsharp: generate_wave(AMPLITUDE, square_wave(415.30)),
+        a: generate_wave(AMPLITUDE, square_wave(440.00)),
+        asharp: generate_wave(AMPLITUDE, square_wave(466.16)),
+        b: generate_wave(AMPLITUDE, square_wave(493.88)),
+        c2: generate_wave(AMPLITUDE, square_wave(523.25)),
+        csharp2: generate_wave(AMPLITUDE, square_wave(554.36)),
+        d2: generate_wave(AMPLITUDE, square_wave(587.32)),
+        dsharp2: generate_wave(AMPLITUDE, square_wave(622.25)),
+        e2: generate_wave(AMPLITUDE, square_wave(659.26)),
+        f2: generate_wave(AMPLITUDE, square_wave(698.46)),
+        fsharp2: generate_wave(AMPLITUDE, square_wave(739.98)),
+        g2: generate_wave(AMPLITUDE, square_wave(784.)),
+        gsharp2: generate_wave(AMPLITUDE, square_wave(830.60)),
+        a2: generate_wave(AMPLITUDE, square_wave(880.)),
+        asharp2: generate_wave(AMPLITUDE, square_wave(923.32)),
+        b2: generate_wave(AMPLITUDE, square_wave(987.75)),
+        name: "square".to_string()
+    }
+    }
+
+    pub fn init_sawtooth() -> BasicPiano {
+        BasicPiano{
+        c: generate_wave(AMPLITUDE, sawtooth_wave(261.63)),
+        csharp: generate_wave(AMPLITUDE, sawtooth_wave(277.18)),
+        d: generate_wave(AMPLITUDE, sawtooth_wave(293.66)),
+        dsharp: generate_wave(AMPLITUDE, sawtooth_wave(311.13)),
+        e: generate_wave(AMPLITUDE, sawtooth_wave(329.63)),
+        f: generate_wave(AMPLITUDE, sawtooth_wave(349.23)),
+        fsharp: generate_wave(AMPLITUDE, sawtooth_wave(369.99)),
+        g: generate_wave(AMPLITUDE, sawtooth_wave(392.00)),
+        gsharp: generate_wave(AMPLITUDE, sawtooth_wave(415.30)),
+        a: generate_wave(AMPLITUDE, sawtooth_wave(440.00)),
+        asharp: generate_wave(AMPLITUDE, sawtooth_wave(466.16)),
+        b: generate_wave(AMPLITUDE, sawtooth_wave(493.88)),
+        c2: generate_wave(AMPLITUDE, sawtooth_wave(523.25)),
+        csharp2: generate_wave(AMPLITUDE, sawtooth_wave(554.36)),
+        d2: generate_wave(AMPLITUDE, sawtooth_wave(587.32)),
+        dsharp2: generate_wave(AMPLITUDE, sawtooth_wave(622.25)),
+        e2: generate_wave(AMPLITUDE, sawtooth_wave(659.26)),
+        f2: generate_wave(AMPLITUDE, sawtooth_wave(698.46)),
+        fsharp2: generate_wave(AMPLITUDE, sawtooth_wave(739.98)),
+        g2: generate_wave(AMPLITUDE, sawtooth_wave(784.)),
+        gsharp2: generate_wave(AMPLITUDE, sawtooth_wave(830.60)),
+        a2: generate_wave(AMPLITUDE, sawtooth_wave(880.)),
+        asharp2: generate_wave(AMPLITUDE, sawtooth_wave(923.32)),
+        b2: generate_wave(AMPLITUDE, sawtooth_wave(987.75)),
+        name: "sawtooth".to_string()
+    }
+    }
+
+    pub fn init_triangle() -> BasicPiano {
+        BasicPiano{
+        c: generate_wave(AMPLITUDE, triangle_wave(261.63)),
+        csharp: generate_wave(AMPLITUDE, triangle_wave(277.18)),
+        d: generate_wave(AMPLITUDE, triangle_wave(293.66)),
+        dsharp: generate_wave(AMPLITUDE, triangle_wave(311.13)),
+        e: generate_wave(AMPLITUDE, triangle_wave(329.63)),
+        f: generate_wave(AMPLITUDE, triangle_wave(349.23)),
+        fsharp: generate_wave(AMPLITUDE, triangle_wave(369.99)),
+        g: generate_wave(AMPLITUDE, triangle_wave(392.00)),
+        gsharp: generate_wave(AMPLITUDE, triangle_wave(415.30)),
+        a: generate_wave(AMPLITUDE, triangle_wave(440.00)),
+        asharp: generate_wave(AMPLITUDE, triangle_wave(466.16)),
+        b: generate_wave(AMPLITUDE, triangle_wave(493.88)),
+        c2: generate_wave(AMPLITUDE, triangle_wave(523.25)),
+        csharp2: generate_wave(AMPLITUDE, triangle_wave(554.36)),
+        d2: generate_wave(AMPLITUDE, triangle_wave(587.32)),
+        dsharp2: generate_wave(AMPLITUDE, triangle_wave(622.25)),
+        e2: generate_wave(AMPLITUDE, triangle_wave(659.26)),
+        f2: generate_wave(AMPLITUDE, triangle_wave(698.46)),
+        fsharp2: generate_wave(AMPLITUDE, triangle_wave(739.98)),
+        g2: generate_wave(AMPLITUDE, triangle_wave(784.)),
+        gsharp2: generate_wave(AMPLITUDE, triangle_wave(830.60)),
+        a2: generate_wave(AMPLITUDE, triangle_wave(880.)),
+        asharp2: generate_wave(AMPLITUDE, triangle_wave(923.32)),
+        b2: generate_wave(AMPLITUDE, triangle_wave(987.75)),
+        name: "triangle".to_string()
+    }
+    }
+
+    pub fn init_tangent() -> BasicPiano {
+        BasicPiano{
+        c: generate_wave(AMPLITUDE, tangent_wave(261.63)),
+        csharp: generate_wave(AMPLITUDE, tangent_wave(277.18)),
+        d: generate_wave(AMPLITUDE, tangent_wave(293.66)),
+        dsharp: generate_wave(AMPLITUDE, tangent_wave(311.13)),
+        e: generate_wave(AMPLITUDE, tangent_wave(329.63)),
+        f: generate_wave(AMPLITUDE, tangent_wave(349.23)),
+        fsharp: generate_wave(AMPLITUDE, tangent_wave(369.99)),
+        g: generate_wave(AMPLITUDE, tangent_wave(392.00)),
+        gsharp: generate_wave(AMPLITUDE, tangent_wave(415.30)),
+        a: generate_wave(AMPLITUDE, tangent_wave(440.00)),
+        asharp: generate_wave(AMPLITUDE, tangent_wave(466.16)),
+        b: generate_wave(AMPLITUDE, tangent_wave(493.88)),
+        c2: generate_wave(AMPLITUDE, tangent_wave(523.25)),
+        csharp2: generate_wave(AMPLITUDE, tangent_wave(554.36)),
+        d2: generate_wave(AMPLITUDE, tangent_wave(587.32)),
+        dsharp2: generate_wave(AMPLITUDE, tangent_wave(622.25)),
+        e2: generate_wave(AMPLITUDE, tangent_wave(659.26)),
+        f2: generate_wave(AMPLITUDE, tangent_wave(698.46)),
+        fsharp2: generate_wave(AMPLITUDE, tangent_wave(739.98)),
+        g2: generate_wave(AMPLITUDE, tangent_wave(784.)),
+        gsharp2: generate_wave(AMPLITUDE, tangent_wave(830.60)),
+        a2: generate_wave(AMPLITUDE, tangent_wave(880.)),
+        asharp2: generate_wave(AMPLITUDE, tangent_wave(923.32)),
+        b2: generate_wave(AMPLITUDE, tangent_wave(987.75)),
+        name: "tangent".to_string()
     }
     }
     

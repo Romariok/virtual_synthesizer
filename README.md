@@ -11,10 +11,24 @@ VIRTUAL SYNTHESIZER
 ![](/docs/board.png)
 
 # Звуки
-* Базовый (Преобразование Фурье)
+## Базовые (Преобразование Фурье)
+* Синусоидальная
+![](/docs/sine.png)
 
-![](/docs/basic.png)
+* Пилообразная
+![](/docs/sawtooth.png)
 
-* Lancer (crate wavegen)
+* Квадратная
+![](/docs/square.png)
+
+* Треугольная
+![](/docs/triangle.png)
+
+* Тангенциальная
+![](/docs/tangent.png)
+
+
+## Сторонние библиотеки
+* Lancer (wavegen)
 
 ![](/docs/lancer.png)

@@ -37,10 +37,8 @@ fn main() {
     let mut surface = unsafe { Surface::new(&context, &window) }.unwrap();
 
     let (stream, handle) = OutputStream::try_default().unwrap();
-    let styles = vec![
-        BasicPiano::init_basic(),
-        BasicPiano::init_lancer(),
-    ];
+    let styles = vec![BasicPiano::init_sine(), BasicPiano::init_lancer(), BasicPiano::init_square(), BasicPiano::init_sawtooth(), 
+    BasicPiano::init_triangle(), BasicPiano::init_tangent()];
     let styles_names = styles
         .iter()
         .map(|style| style.name.clone())
