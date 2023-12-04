@@ -16,31 +16,21 @@ VIRTUAL SYNTHESIZER
   
 ![](/docs/sine.png)
 
-[Прослушать](/resources/sine/A.flac)
-
 * Пилообразная
   
 ![](/docs/sawtooth.png)
-
-[Прослушать](/resources/sawtooth/A.flac)
 
 * Квадратная
   
 ![](/docs/square.png)
 
-[Прослушать](/resources/square/A.flac)
-
 * Треугольная
   
 ![](/docs/triangle.png)
 
-[Прослушать](/resources/triangle/A.flac)
-
 * Тангенциальная
   
 ![](/docs/tangent.png)
-
-[Прослушать](/resources/tangent/A.flac)
 
 ## Комплексные (Сложение нескольких волн)
 
@@ -48,17 +38,11 @@ VIRTUAL SYNTHESIZER
 
 ![](/docs/organ.png)
 
-[Прослушать](/resources/organ/A.flac)
-
 * Колокол
 
 ![](/docs/bell.png)
-
-[Прослушать](/resources/bell/A.flac)
 
 ## Сторонние библиотеки
 * Lancer (wavegen)
 
 ![](/docs/lancer.png)
-
-[Прослушать](/resources/lancer/A.flac)
