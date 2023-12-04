@@ -73,9 +73,6 @@ pub fn bell(frequency: f32) -> impl Fn(f32) -> f32 {
     }
 }
 
-
-
-
 pub fn gen_lancer_wave(freq: f32) -> Vec<i32> {
     let waveform = wf!(
         i32,
