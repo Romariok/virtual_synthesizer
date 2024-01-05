@@ -1,11 +1,10 @@
 use std::f32::consts::PI;
-use std::time::Duration;
 use wavegen::{dc_bias, sawtooth, wf};
 use crate::services::filter::envelope;
 
 const NOTE_TIME: f32 = 0.4;
 const NOTE_TIME_LANCER: f32 = 0.7;
-pub const AMPLITUDE: f32 = 1500.0;
+pub const AMPLITUDE: f32 = 3000.0;
 const SAMPLE_RATE: f32 = 44100.0;
 
 pub fn sine_wave(frequency: f32) -> impl Fn(f32) -> f32 {
