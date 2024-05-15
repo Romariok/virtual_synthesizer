@@ -5,12 +5,12 @@ use winit::event::VirtualKeyCode;
 
 pub use crate::services::wave_generation::{
     generate_wave,
-    add_waves,
+    // add_waves,
     sine_wave,
-    square_wave,
-    sawtooth_wave,
-    triangle_wave,
-    tangent_wave,
+    // square_wave,
+    // sawtooth_wave,
+    // triangle_wave,
+    // tangent_wave,
     bell,
     organ,
     gen_lancer_wave,

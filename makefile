@@ -1,4 +1,7 @@
 
+all: compile
+	./target/debug/virtual_synthesizer.exe
+
 
 
 clean:
