@@ -21,7 +21,7 @@ use async_std::task;
 use rodio::OutputStream;
 
 fn main() {
-    let path = "C:\\Users\\ronya\\virtual_synthesizer\\resources\\piano.jpg";
+    let path = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/piano.jpg");
     let icon = load_icon(Path::new(path));
 
     let surface_width = 800.0;
